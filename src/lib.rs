@@ -34,7 +34,7 @@
 //! let builder = TwineBuilder::new(signer);
 //! // build the strand, specifying the subspec, hasher, and details
 //! let strand = builder.build_strand()
-//!  .subspec("twine-rng/1.0.0".into())
+//!  .subspec(subspec_string())
 //!  .hasher(Code::Sha3_256)
 //!  // specify the period for the strand
 //!  .details(RngStrandDetails { period: TimeDelta::seconds(60) })
@@ -75,6 +75,11 @@ mod validations;
 pub const SPEC_PREFIX : &str = "twine-rng";
 /// The current version of the twine-rng specification
 pub const SPEC_VERSION : &str = "1.0.0";
+
+/// The spec string to use when building a strand
+pub fn subspec_string() -> String {
+  format!("{}/{}", SPEC_PREFIX, SPEC_VERSION)
+}
 
 /// The strand details for the twine-rng specification
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
@@ -193,7 +198,7 @@ mod test {
     let signer = RingSigner::generate_rs256(2048).unwrap();
     let builder = TwineBuilder::new(signer);
     let strand = builder.build_strand()
-      .subspec("twine-rng/1.0.0".into())
+      .subspec(subspec_string())
       .hasher(Code::Sha3_256)
       .details(RngStrandDetails { period: TimeDelta::seconds(60) })
       .done()
@@ -280,7 +285,7 @@ mod test {
     let signer = RingSigner::generate_ed25519().unwrap();
     let builder = TwineBuilder::new(signer);
     let strand = builder.build_strand()
-      .subspec("twine-rng/1.0.0".into())
+      .subspec(subspec_string())
       .hasher(Code::Sha3_256)
       .details(RngStrandDetails { period: TimeDelta::seconds(60) })
       .done()
@@ -298,7 +303,7 @@ mod test {
     let signer = RingSigner::generate_rs256(2048).unwrap();
     let builder = TwineBuilder::new(signer);
     let strand = builder.build_strand()
-      .subspec("twine-rng/1.0.0".into())
+      .subspec(subspec_string())
       .hasher(Code::Sha3_256)
       .details(RngStrandDetails { period: TimeDelta::seconds(60) })
       .done()
