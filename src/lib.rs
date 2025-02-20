@@ -1,3 +1,65 @@
+//! Twine RNG Specification library
+//!
+//! This library provides the necessary tools to build and validate
+//! twine-rng strands.
+//!
+//! # Example
+//!
+//! Validation of a twine pair:
+//!
+//! ```ignore
+//! use twine_spec_rng::extract_randomness;
+//!
+//! let current: Twine = ...;
+//! let previous: Twine = ...;
+//! let rand = extract_randomness(&current, &previous)?;
+//! ```
+//!
+//! Building an rng strand.
+//!
+//! **Note**: When building, timing is important. When the payload
+//! is built, it calculates the timestamp that the next tixel should
+//! be available. If it's late and takes longer to create than the period,
+//! the randomness extraction will fail when a client attempts to extract
+//! it.
+//!
+//! ```
+//! use twine::{twine_builder::{RingSigner, TwineBuilder}, twine_core::crypto::PublicKey};
+//! use chrono::TimeDelta;
+//! use twine::twine_core::multihash_codetable::Code;
+//! use twine_spec_rng::{PayloadBuilder, RngStrandDetails};
+//!
+//! // create a new twine builder
+//! let signer = RingSigner::generate_rs256(2048).unwrap();
+//! let builder = TwineBuilder::new(signer);
+//! // build the strand, specifying the subspec, hasher, and details
+//! let strand = builder.build_strand()
+//!  .subspec("twine-rng/1.0.0".into())
+//!  .hasher(Code::Sha3_256)
+//!  // specify the period for the strand
+//!  .details(RngStrandDetails { period: TimeDelta::seconds(60) })
+//!  .done()
+//!  .unwrap();
+//!
+//! // create a payload builder with the initial randomness
+//! // here we use 32 bytes of 1s for the next randomness
+//! let pb = PayloadBuilder::new([0u8; 32].to_vec(), [1u8; 32].to_vec());
+//!
+//! // build the first tixel
+//! let first = builder.build_first(strand)
+//!  .build_payload_then_done(pb.builder())
+//!  .unwrap();
+//!
+//! // advance the payload with new randomness
+//! let pb = pb.advance([2u8; 32].to_vec());
+//! // build the next tixel
+//! let second = builder.build_next(&first)
+//!   .build_payload_then_done(pb.builder())
+//!   .unwrap();
+//!
+//! // ... continue
+//! ```
+
 use chrono::TimeDelta;
 use twine::{prelude::*, twine_core::{ipld_core::serde::from_ipld, multihash_codetable::{Code, Multihash}, semver::VersionReq}};
 
@@ -9,20 +71,38 @@ pub use timing::*;
 
 mod validations;
 
+/// The prefix for the twine-rng specification
 pub const SPEC_PREFIX : &str = "twine-rng";
+/// The current version of the twine-rng specification
 pub const SPEC_VERSION : &str = "1.0.0";
 
+/// The strand details for the twine-rng specification
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct RngStrandDetails {
   pub period: TimeDelta,
 }
 
+/// A builder to aid in constructing payloads for the twine-rng specification
+///
+/// # Example
+///
+/// ```
+/// use twine_spec_rng::PayloadBuilder;
+/// let pb = PayloadBuilder::new([0u8; 32].to_vec(), [1u8; 32].to_vec());
+/// // use in the tixel builder
+/// // `.build_payload_then_done(pb.builder())`
+/// // then advance the payload with new randomness
+/// let pb = pb.advance([2u8; 32].to_vec());
+/// ```
 pub struct PayloadBuilder {
   current: Vec<u8>,
   next: Vec<u8>,
 }
 
 impl PayloadBuilder {
+  /// Create a new payload builder
+  ///
+  /// When starting from the beginning of a strand, the `current` value will be ignored
   pub fn new(current: Vec<u8>, next: Vec<u8>) -> Self {
     Self { current, next }
   }
@@ -70,6 +150,9 @@ impl PayloadBuilder {
   }
 }
 
+/// Safely extract the randomness from a twine pair
+///
+/// This function performs necessary validations to ensure the randomness is valid
 pub fn extract_randomness(
   current: &Twine,
   prev: &Twine,
@@ -111,7 +194,7 @@ mod test {
     let builder = TwineBuilder::new(signer);
     let strand = builder.build_strand()
       .subspec("twine-rng/1.0.0".into())
-      .hasher(Code::Blake3_256)
+      .hasher(Code::Sha3_256)
       .details(RngStrandDetails { period: TimeDelta::seconds(60) })
       .done()
       .unwrap();
@@ -198,7 +281,7 @@ mod test {
     let builder = TwineBuilder::new(signer);
     let strand = builder.build_strand()
       .subspec("twine-rng/1.0.0".into())
-      .hasher(Code::Blake3_256)
+      .hasher(Code::Sha3_256)
       .details(RngStrandDetails { period: TimeDelta::seconds(60) })
       .done()
       .unwrap();
@@ -216,7 +299,7 @@ mod test {
     let builder = TwineBuilder::new(signer);
     let strand = builder.build_strand()
       .subspec("twine-rng/1.0.0".into())
-      .hasher(Code::Blake3_256)
+      .hasher(Code::Sha3_256)
       .details(RngStrandDetails { period: TimeDelta::seconds(60) })
       .done()
       .unwrap();
