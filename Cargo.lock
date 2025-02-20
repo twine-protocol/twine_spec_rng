@@ -1490,6 +1490,7 @@ dependencies = [
 [[package]]
 name = "twine"
 version = "0.0.1"
+source = "git+https://github.com/twine-protocol/twine-rs.git#409df762d934c528c23acf6728e13a115d992f72"
 dependencies = [
  "twine_builder",
  "twine_core",
@@ -1498,6 +1499,7 @@ dependencies = [
 [[package]]
 name = "twine_builder"
 version = "0.0.1"
+source = "git+https://github.com/twine-protocol/twine-rs.git#409df762d934c528c23acf6728e13a115d992f72"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1517,6 +1519,7 @@ dependencies = [
 [[package]]
 name = "twine_core"
 version = "0.0.1"
+source = "git+https://github.com/twine-protocol/twine-rs.git#409df762d934c528c23acf6728e13a115d992f72"
 dependencies = [
  "anyhow",
  "async-trait",
