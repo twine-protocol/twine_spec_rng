@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-twine = { git = "https://github.com/twine-protocol/twine-rs.git", features = ["build"] }
+twine = { git = "https://github.com/twine-protocol/twine-rs.git", rev = "409df762d934c528c23acf6728e13a115d992f72", features = ["build"] }
 serde = { version = "1.0", features = ["derive"] }
 chrono = { version = "0.4", features = ["serde"] }
 
 [dev-dependencies]
 serde_json = "1.0"
-twine = { git = "https://github.com/twine-protocol/twine-rs.git", features = ["build", "rsa"] }
+twine = { git = "https://github.com/twine-protocol/twine-rs.git", rev = "409df762d934c528c23acf6728e13a115d992f72", features = ["build", "rsa"] }
