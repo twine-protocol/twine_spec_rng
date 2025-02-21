@@ -3,8 +3,20 @@ name = "twine_spec_rng"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "twine_rng_tool"
+path = "src/main.rs"
+required-features = ["bin"]
+
+[features]
+default = []
+bin = ["dep:twine_http_store", "dep:tokio", "dep:hex"]
+
 [dependencies]
 twine = { git = "https://github.com/twine-protocol/twine-rs.git", rev = "409df762d934c528c23acf6728e13a115d992f72", features = ["build"] }
+twine_http_store = { git = "https://github.com/twine-protocol/twine-rs.git", package = "twine_http_store", rev = "409df762d934c528c23acf6728e13a115d992f72", optional = true }
+tokio = { version = "1.0", features = ["full"], optional = true }
+hex = { version = "0.4", optional = true }
 serde = { version = "1.0", features = ["derive"] }
 chrono = { version = "0.4", features = ["serde"] }
 
