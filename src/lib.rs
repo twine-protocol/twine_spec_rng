@@ -191,10 +191,10 @@ pub fn extract_randomness(
 
 #[cfg(test)]
 mod test {
-  use twine::{twine_builder::RingSigner, twine_core::crypto::PublicKey};
+  use twine::twine_builder::RingSigner;
   use crate::*;
 
-  fn builder() -> (TwineBuilder<PublicKey, RingSigner>, Strand) {
+  fn builder() -> (TwineBuilder<2, RingSigner>, Strand) {
     let signer = RingSigner::generate_rs256(2048).unwrap();
     let builder = TwineBuilder::new(signer);
     let strand = builder.build_strand()
