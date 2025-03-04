@@ -13,8 +13,8 @@ default = []
 bin = ["dep:twine_http_store", "dep:tokio", "dep:hex"]
 
 [dependencies]
-twine = { git = "https://github.com/twine-protocol/twine-rs.git", rev = "3b66b8bf4e8e0b8592ee3e0df075b010937b5a12", features = ["build"] }
-twine_http_store = { git = "https://github.com/twine-protocol/twine-rs.git", package = "twine_http_store", rev = "3b66b8bf4e8e0b8592ee3e0df075b010937b5a12", optional = true }
+twine = { git = "https://github.com/twine-protocol/twine-rs.git", rev = "e22a80ee7bc3eaa191214f961b511b564496232b", features = ["build"] }
+twine_http_store = { git = "https://github.com/twine-protocol/twine-rs.git", package = "twine_http_store", rev = "e22a80ee7bc3eaa191214f961b511b564496232b", optional = true }
 tokio = { version = "1.0", features = ["full"], optional = true }
 hex = { version = "0.4", optional = true }
 serde = { version = "1.0", features = ["derive"] }
@@ -22,4 +22,4 @@ chrono = { version = "0.4", features = ["serde"] }
 
 [dev-dependencies]
 serde_json = "1.0"
-twine = { git = "https://github.com/twine-protocol/twine-rs.git", rev = "3b66b8bf4e8e0b8592ee3e0df075b010937b5a12", features = ["build", "rsa"] }
+twine = { git = "https://github.com/twine-protocol/twine-rs.git", rev = "e22a80ee7bc3eaa191214f961b511b564496232b", features = ["build", "rsa"] }
