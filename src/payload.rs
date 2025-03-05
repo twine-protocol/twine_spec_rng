@@ -1,5 +1,4 @@
 use chrono::TimeDelta;
-use std::sync::Arc;
 use twine::prelude::*;
 use twine::twine_core::multihash_codetable::Code;
 use twine::twine_core::multihash_codetable::Multihash;
@@ -53,7 +52,7 @@ impl RandomnessPayload {
   pub fn new_next(
     rand: &[u8],
     pre: Multihash,
-    prev: Arc<Tixel>,
+    prev: &Tixel,
     period: chrono::TimeDelta,
   ) -> Result<Self, BuildError> {
     // ensure rand corresponds to previous pre
