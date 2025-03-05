@@ -89,8 +89,8 @@ impl RandomnessPayload {
     pre: Multihash,
     period: TimeDelta,
   ) -> Result<Self, VerificationError> {
-    let num_bytes = pre.size();
-    let salt = Bytes((0..num_bytes).collect());
+    let num_bytes = pre.size() as usize;
+    let salt = Bytes(vec![0u8; num_bytes]);
     let timestamp = crate::timing::next_truncated_time(period);
     Self::try_new(salt, pre, timestamp)
   }

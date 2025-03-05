@@ -225,6 +225,12 @@ mod test {
     // println!("First: {}", first);
     // println!("Second: {}", second);
 
+    let first_payload = first.extract_payload::<RandomnessPayload>().unwrap();
+    assert_eq!(first_payload.salt(), vec![0u8; 32]);
+
+    let second_payload = second.extract_payload::<RandomnessPayload>().unwrap();
+    assert_eq!(second_payload.local_random_value(&first), vec![1u8; 32]);
+
     let payload = second.extract_payload::<RandomnessPayload>().unwrap();
     payload.validate_randomness(&first).unwrap();
   }
