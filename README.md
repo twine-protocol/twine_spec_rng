@@ -1,7 +1,7 @@
 # Twine RNG Specification library
 
 [![Crates.io Version](https://img.shields.io/crates/v/twine_spec_rng)](https://crates.io/crates/twine_spec_rng)
-[![docs.rs (with version)](https://img.shields.io/docsrs/twine_spec_rng/latest)](https://docs.rs/twine_protocol/latest/twine_spec_rng/)
+[![docs.rs (with version)](https://img.shields.io/docsrs/twine_spec_rng/latest)](https://docs.rs/twine_spec_rng/latest/twine_spec_rng/)
 
 This library provides the necessary tools to build and validate
 `twine-rng` strands. It is intended to be used with the
