@@ -10,16 +10,15 @@ required-features = ["bin"]
 
 [features]
 default = []
-bin = ["dep:twine_http_store", "dep:tokio", "dep:hex"]
+bin = ["dep:tokio", "dep:hex", "twine_protocol/http"]
 
 [dependencies]
-twine = { git = "https://github.com/twine-protocol/twine-rs.git", rev = "dab681d0fa3a00a34a280fc77955ba9f28b81b16", features = ["build"] }
-twine_http_store = { git = "https://github.com/twine-protocol/twine-rs.git", package = "twine_http_store", rev = "dab681d0fa3a00a34a280fc77955ba9f28b81b16", optional = true }
-tokio = { version = "1.0", features = ["full"], optional = true }
+twine_protocol = { version = "0.1.0", features = ["build"] }
+tokio = { version = "1.44.1", features = ["full"], optional = true }
 hex = { version = "0.4", optional = true }
-serde = { version = "1.0", features = ["derive"] }
-chrono = { version = "0.4", features = ["serde"] }
+serde = { version = "1.0.219", features = ["derive"] }
+chrono = { version = "0.4.40", features = ["serde"] }
 
 [dev-dependencies]
-serde_json = "1.0"
-twine = { git = "https://github.com/twine-protocol/twine-rs.git", rev = "dab681d0fa3a00a34a280fc77955ba9f28b81b16", features = ["build", "rsa"] }
+serde_json = "1.0.140"
+twine_protocol = { version = "0.1.0", features = ["build", "rsa"] }

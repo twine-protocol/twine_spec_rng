@@ -1,7 +1,7 @@
 #![doc = include_str!("../README.md")]
 
 use chrono::TimeDelta;
-use twine::{prelude::*, twine_core::{ipld_core::serde::from_ipld, multihash_codetable::{Code, Multihash}, semver::VersionReq}};
+use twine_protocol::{prelude::*, twine_lib::{ipld_core::serde::from_ipld, multihash_codetable::{Code, Multihash}, semver::VersionReq}};
 
 mod payload;
 pub use payload::*;
@@ -57,7 +57,7 @@ impl PayloadBuilder {
   }
 
   pub fn pre(&self, code: Code) -> Multihash {
-    use twine::twine_core::multihash_codetable::MultihashDigest;
+    use twine_protocol::twine_lib::multihash_codetable::MultihashDigest;
     code.digest(&self.next)
   }
 
@@ -131,7 +131,7 @@ pub fn extract_randomness(
 
 #[cfg(test)]
 mod test {
-  use twine::twine_builder::RingSigner;
+  use twine_protocol::twine_builder::RingSigner;
   use crate::*;
 
   fn builder() -> (TwineBuilder<2, RingSigner>, Strand) {

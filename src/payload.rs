@@ -1,9 +1,9 @@
 use chrono::TimeDelta;
-use twine::prelude::*;
-use twine::twine_core::multihash_codetable::Code;
-use twine::twine_core::multihash_codetable::Multihash;
-use twine::twine_core::verify::{Verifiable, Verified};
-use twine::twine_core::Bytes;
+use twine_protocol::prelude::*;
+use twine_protocol::twine_lib::multihash_codetable::Code;
+use twine_protocol::twine_lib::multihash_codetable::Multihash;
+use twine_protocol::twine_lib::verify::{Verifiable, Verified};
+use twine_protocol::twine_lib::Bytes;
 
 use crate::RngStrandDetails;
 
@@ -59,7 +59,7 @@ impl RandomnessPayload {
     let prev_payload = prev.extract_payload::<RandomnessPayload>()?;
 
     let hasher = prev.hasher();
-    use twine::twine_core::multihash_codetable::MultihashDigest;
+    use twine_protocol::twine_lib::multihash_codetable::MultihashDigest;
     if prev_payload.0.pre != hasher.digest(&rand) {
       return Err(BuildError::PayloadConstruction(
         "Precommitment does not match random bytes".to_string(),
@@ -120,7 +120,7 @@ impl RandomnessPayload {
     // check that the precommitment from the previous tixel matches the xor rand value
     let rand = self.local_random_value(prev);
 
-    use twine::twine_core::multihash_codetable::MultihashDigest;
+    use twine_protocol::twine_lib::multihash_codetable::MultihashDigest;
     let code = Code::try_from(prev_payload.pre().code())
       .map_err(|_| VerificationError::UnsupportedHashAlgorithm)?;
     let pre = code.digest(&rand);
@@ -160,7 +160,7 @@ impl RandomnessPayload {
 mod test {
   use crate::RngStrandDetails;
   use super::*;
-  use twine::{twine_builder::RingSigner, twine_core::serde_ipld_dagjson};
+  use twine_protocol::{twine_builder::RingSigner, twine_lib::serde_ipld_dagjson};
 
   fn valid() -> &'static str {
     r#"{
@@ -216,7 +216,7 @@ mod test {
       .unwrap();
 
     let first = builder.build_first(strand).done().unwrap();
-    use twine::twine_core::multihash_codetable::MultihashDigest;
+    use twine_protocol::twine_lib::multihash_codetable::MultihashDigest;
     let payload = RandomnessPayload::try_new(
       [22u8; 64].to_vec().into(),
       Code::Sha3_512.digest(&[1u8; 64]),

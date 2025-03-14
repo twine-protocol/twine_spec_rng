@@ -1,4 +1,4 @@
-use twine::{prelude::BuildError, twine_core::{crypto::SignatureAlgorithm, specification::Subspec}};
+use twine_protocol::{prelude::BuildError, twine_lib::{crypto::SignatureAlgorithm, specification::Subspec}};
 
 pub fn validate_signing_algorithm(alg: SignatureAlgorithm) -> Result<(), BuildError> {
   match alg {

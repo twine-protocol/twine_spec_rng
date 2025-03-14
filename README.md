@@ -25,9 +25,9 @@ the randomness extraction will fail when a client attempts to extract
 it.
 
 ```rs
-use twine::{twine_builder::{RingSigner, TwineBuilder}, twine_core::crypto::PublicKey};
+use twine_protocol::{twine_builder::{RingSigner, TwineBuilder}, twine_lib::crypto::PublicKey};
 use chrono::TimeDelta;
-use twine::twine_core::multihash_codetable::Code;
+use twine_protocol::twine_lib::multihash_codetable::Code;
 use twine_spec_rng::{PayloadBuilder, RngStrandDetails};
 
 // create a new twine builder

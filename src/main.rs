@@ -1,5 +1,5 @@
-use twine::prelude::Resolver;
-use twine::prelude::*;
+use twine_protocol::prelude::Resolver;
+use twine_protocol::prelude::*;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -14,8 +14,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let url = &args[1];
   let query = &args[2];
 
-  let client = twine_http_store::reqwest::Client::new();
-  let store = twine_http_store::v2::HttpStore::new(client)
+  let client = twine_protocol::twine_http_store::reqwest::Client::new();
+  let store = twine_protocol::twine_http_store::v2::HttpStore::new(client)
     .with_url(url);
 
   let query: SingleQuery = query.parse()?;
