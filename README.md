@@ -11,7 +11,7 @@ This library provides the necessary tools to build and validate
 
 Validation of a twine pair:
 
-```rs,ignore
+```rust,ignore
 use twine_spec_rng::extract_randomness;
 
 let current: Twine = ...;
@@ -27,7 +27,7 @@ be available. If it's late and takes longer to create than the period,
 the randomness extraction will fail when a client attempts to extract
 it.
 
-```rs
+```rust
 use twine_protocol::{twine_builder::{RingSigner, TwineBuilder}, twine_lib::crypto::PublicKey};
 use chrono::TimeDelta;
 use twine_protocol::twine_lib::multihash_codetable::Code;
