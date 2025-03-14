@@ -31,7 +31,7 @@ it.
 use twine_protocol::{twine_builder::{RingSigner, TwineBuilder}, twine_lib::crypto::PublicKey};
 use chrono::TimeDelta;
 use twine_protocol::twine_lib::multihash_codetable::Code;
-use twine_spec_rng::{PayloadBuilder, RngStrandDetails};
+use twine_spec_rng::{PayloadBuilder, RngStrandDetails, subspec_string};
 
 // create a new twine builder
 let signer = RingSigner::generate_rs256(2048).unwrap();
