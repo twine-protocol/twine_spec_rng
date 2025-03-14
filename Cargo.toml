@@ -2,6 +2,13 @@
 name = "twine_spec_rng"
 version = "0.1.0"
 edition = "2021"
+authors = ["Jasper Palfree <jasper.palfree@colorado.edu>"]
+description = "Twine payload subspec for random number generation"
+license = "MIT"
+repository = "https://github.com/twine-protocol/twine_spec_rng"
+readme = "README.md"
+keywords = ["twine", "protocol", "rng", "random", "beacon"]
+categories = ["cryptography"]
 
 [[bin]]
 name = "twine_rng_tool"
