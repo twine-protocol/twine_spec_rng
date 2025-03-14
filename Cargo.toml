@@ -1,6 +1,6 @@
 [package]
 name = "twine_spec_rng"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Jasper Palfree <jasper.palfree@colorado.edu>"]
 description = "Twine payload subspec for random number generation"
