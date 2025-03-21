@@ -20,7 +20,7 @@ default = []
 bin = ["dep:tokio", "dep:hex", "twine_protocol/http"]
 
 [dependencies]
-twine_protocol = { version = "0.1.0", features = ["build"] }
+twine_protocol = { version = "0.1.1", features = ["build"] }
 tokio = { version = "1.44.1", features = ["full"], optional = true }
 hex = { version = "0.4", optional = true }
 serde = { version = "1.0.219", features = ["derive"] }

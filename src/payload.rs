@@ -15,6 +15,7 @@ struct RandomnessPayloadRaw {
 }
 
 impl Verifiable for RandomnessPayloadRaw {
+  type Error = VerificationError;
   fn verify(&self) -> Result<(), VerificationError> {
     if self.salt.len() != self.pre.size() as usize {
       return Err(VerificationError::Payload(
